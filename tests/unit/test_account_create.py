@@ -1,6 +1,5 @@
 from src.account import Account
 
-
 class TestAccount:
     def test_account_creation(self):
         account = Account("John", "Doe", "49071512368")
