@@ -5,6 +5,7 @@ class Account:
         self.first_name = first_name
         self.last_name = last_name
         self.balance = 0
+        self.express_transfer_fee = 1
 
         if len(pesel) != 11:
             self.pesel = "Invalid"
@@ -34,3 +35,37 @@ class Account:
             year_of_birth = 1900 + int(pesel[:2])
 
         return year_of_birth > 1960
+    
+    def withdraw(self, amount):
+        if amount <= 0:
+            raise ValueError("Nieprawidłowa wartość kwoty")
+        if amount > self.balance:
+            raise ValueError("Brak środków")
+        else:
+            self.balance -= amount
+    
+    def deposit(self, amount):
+        if amount <= 0:
+            raise ValueError("Nieprawidłowa wartość kwoty")
+        else:
+            self.balance += amount
+
+    def express_transfer(self, amount):
+        if amount <= 0:
+            raise ValueError("Nieprawidłowa wartość kwoty")
+        if amount > self.balance + self.express_transfer_fee:
+            raise ValueError("Brak środków")
+        else:
+            self.balance -= amount + self.express_transfer_fee
+
+
+class BusinessAccount(Account):
+    def __init__(self, company_name, nip):
+        self.company_name = company_name
+        self.balance = 0
+        self.express_transfer_fee = 5
+        
+        if len(nip) != 10:
+            self.nip = "Invalid"
+        else:
+            self.nip = nip
