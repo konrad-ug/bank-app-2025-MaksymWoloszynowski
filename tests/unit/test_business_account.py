@@ -10,3 +10,4 @@ class TestBusinessAccount:
         account = BusinessAccount("Coca Cola", "f")
         assert account.company_name == "Coca Cola"
         assert account.nip == "Invalid"
+    

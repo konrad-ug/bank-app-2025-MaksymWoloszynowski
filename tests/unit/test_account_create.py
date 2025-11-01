@@ -24,8 +24,16 @@ class TestAccount:
         account = Account("John", "Doe", "49071512368", promo_code="promo123")
         assert account.balance == 0
 
-    def test_after_1960_valid_pesel_promo_code_bonus(self):
+    def test_after_1960_2000_valid_pesel_promo_code_bonus(self):
         account = Account("John", "Doe", "05271512342", promo_code="PROM_2025")
+        assert account.balance == 50
+
+    def test_after_1960_2100_valid_pesel_promo_code_bonus(self):
+        account = Account("John", "Doe", "05415512342", promo_code="PROM_2025")
+        assert account.balance == 50
+
+    def test_after_1960_2200_valid_pesel_promo_code_bonus(self):
+        account = Account("John", "Doe", "05701512342", promo_code="PROM_2025")
         assert account.balance == 50
 
     def test_after_1960_invalid_pesel_promo_code_bonus(self):
@@ -39,5 +47,3 @@ class TestAccount:
     def test_before_1960_old_promo_code_bonus(self):
         account = Account("John", "Doe", "49071512368", promo_code="PROM_2025")
         assert account.balance == 0
-
-    
