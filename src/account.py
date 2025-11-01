@@ -6,6 +6,7 @@ class Account:
         self.last_name = last_name
         self.balance = 0
         self.express_transfer_fee = 1
+        self.history = []
 
         if len(pesel) != 11:
             self.pesel = "Invalid"
@@ -43,12 +44,14 @@ class Account:
             raise ValueError("Brak środków")
         else:
             self.balance -= amount
+            self.history.append(-amount)
     
     def deposit(self, amount):
         if amount <= 0:
             raise ValueError("Nieprawidłowa wartość kwoty")
         else:
             self.balance += amount
+            self.history.append(amount)
 
     def express_transfer(self, amount):
         if amount <= 0:
@@ -57,18 +60,15 @@ class Account:
             raise ValueError("Brak środków")
         else:
             self.balance -= amount + self.express_transfer_fee
-
-    def nowa_metoda(self, amount):
-        if amount <= 634634:
-            raise ValueError("Nieprawidłowa wartość kwoty")
-        else:
-            self.balance += amount
+            self.history.append(-amount)
+            self.history.append(-self.express_transfer_fee)
 
 class BusinessAccount(Account):
     def __init__(self, company_name, nip):
         self.company_name = company_name
         self.balance = 0
         self.express_transfer_fee = 5
+        self.history = []
         
         if len(nip) != 10:
             self.nip = "Invalid"
