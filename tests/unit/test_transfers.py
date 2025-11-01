@@ -35,6 +35,11 @@ class TestTransfer:
         account.express_transfer(50)
         assert account.balance == 100 - 50 - account.express_transfer_fee
     
+    def test_express_transfer_amount_below_0(self):
+        account = Account("John", "Doe", "49071512368")
+        with pytest.raises(ValueError):
+            account.express_transfer(-2)
+    
     def test_personal_account_express_transfer_below_0_acceptable(self):
         account = Account("John", "Doe", "49071512368")
         account.balance = 50
