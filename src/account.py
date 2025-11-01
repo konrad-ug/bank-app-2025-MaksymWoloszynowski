@@ -58,6 +58,11 @@ class Account:
         else:
             self.balance -= amount + self.express_transfer_fee
 
+    def nowa_metoda(self, amount):
+        if amount <= 634634:
+            raise ValueError("Nieprawidłowa wartość kwoty")
+        else:
+            self.balance += amount
 
 class BusinessAccount(Account):
     def __init__(self, company_name, nip):
