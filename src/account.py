@@ -70,18 +70,13 @@ class PersonalAccount(Account):
     def submit_for_loan(self, amount):
         if amount <= 0:
             raise ValueError("Nieprawidłowa wartość kwoty")
-        
-        if len(self.history) >= 3:
-            if self.history[-1] > 0 and self.history[-2] > 0 and self.history[-3] > 0:
-                self.balance += amount
-                return True
-            if len(self.history) >= 5:
-                if sum(self.history[-5:]) > amount:
-                    self.balance += amount
-                    return True
-        
-        return False
 
+        first_condition = len(self.history) >= 3 and self.history[-1] > 0 and self.history[-2] > 0 and self.history[-3] > 0
+        second_condition = len(self.history) >= 5 and sum(self.history[-5:]) > amount
+        
+        if first_condition or second_condition:
+            self.balance += amount
+        return first_condition or second_condition
 class BusinessAccount(Account):
     def __init__(self, company_name, nip):
         super().__init__()
