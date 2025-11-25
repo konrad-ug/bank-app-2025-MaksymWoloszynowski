@@ -21,3 +21,9 @@ class TestLoan:
         assert result == expected_result
         assert account.balance == expected_balance
     
+    def test_loan_invalid_amount(self, account):
+        with pytest.raises(ValueError):
+            account.submit_for_loan(0)
+
+        with pytest.raises(ValueError):
+            account.submit_for_loan(-100)
