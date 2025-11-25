@@ -1,12 +1,42 @@
 import re
 
 class Account:
+    def __init__(self):
+        self.balance = 0
+        self.history = []
+    
+    def withdraw(self, amount):
+        if amount <= 0:
+            raise ValueError("Nieprawidłowa wartość kwoty")
+        if amount > self.balance:
+            raise ValueError("Brak środków")
+        else:
+            self.balance -= amount
+            self.history.append(-amount)
+    
+    def deposit(self, amount):
+        if amount <= 0:
+            raise ValueError("Nieprawidłowa wartość kwoty")
+        else:
+            self.balance += amount
+            self.history.append(amount)
+
+    def express_transfer(self, amount):
+        if amount <= 0:
+            raise ValueError("Nieprawidłowa wartość kwoty")
+        if amount > self.balance + self.express_transfer_fee:
+            raise ValueError("Brak środków")
+        else:
+            self.balance -= amount + self.express_transfer_fee
+            self.history.append(-amount)
+            self.history.append(-self.express_transfer_fee)
+
+class PersonalAccount(Account):
     def __init__(self, first_name, last_name, pesel, promo_code=None):
+        super().__init__()
         self.first_name = first_name
         self.last_name = last_name
-        self.balance = 0
         self.express_transfer_fee = 1
-        self.history = []
 
         if len(pesel) != 11:
             self.pesel = "Invalid"
@@ -37,38 +67,26 @@ class Account:
 
         return year_of_birth > 1960
     
-    def withdraw(self, amount):
+    def submit_for_loan(self, amount):
         if amount <= 0:
             raise ValueError("Nieprawidłowa wartość kwoty")
-        if amount > self.balance:
-            raise ValueError("Brak środków")
-        else:
-            self.balance -= amount
-            self.history.append(-amount)
-    
-    def deposit(self, amount):
-        if amount <= 0:
-            raise ValueError("Nieprawidłowa wartość kwoty")
-        else:
-            self.balance += amount
-            self.history.append(amount)
-
-    def express_transfer(self, amount):
-        if amount <= 0:
-            raise ValueError("Nieprawidłowa wartość kwoty")
-        if amount > self.balance + self.express_transfer_fee:
-            raise ValueError("Brak środków")
-        else:
-            self.balance -= amount + self.express_transfer_fee
-            self.history.append(-amount)
-            self.history.append(-self.express_transfer_fee)
+        
+        if len(self.history) >= 3:
+            if self.history[-1] > 0 and self.history[-2] > 0 and self.history[-3] > 0:
+                self.balance += amount
+                return True
+            if len(self.history) >= 5:
+                if sum(self.history[-5:]) > amount:
+                    self.balance += amount
+                    return True
+        
+        return False
 
 class BusinessAccount(Account):
     def __init__(self, company_name, nip):
+        super().__init__()
         self.company_name = company_name
-        self.balance = 0
         self.express_transfer_fee = 5
-        self.history = []
         
         if len(nip) != 10:
             self.nip = "Invalid"
