@@ -76,7 +76,10 @@ class PersonalAccount(Account):
         
         if first_condition or second_condition:
             self.balance += amount
-        return first_condition or second_condition
+            return True
+
+        return False
+    
 class BusinessAccount(Account):
     def __init__(self, company_name, nip):
         super().__init__()
@@ -87,3 +90,13 @@ class BusinessAccount(Account):
             self.nip = "Invalid"
         else:
             self.nip = nip
+
+    def take_loan(self, amount):
+        first_condition = self.balance >= 2 * amount
+        second_condition = -1775 in self.history
+
+        if first_condition and second_condition:
+            self.balance += amount
+            return True
+
+        return False 
