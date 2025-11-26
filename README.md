@@ -2,11 +2,11 @@
 # Bank-app
 
 ## Author:
-name:
+name: Maksym
 
-surname:
+surname: Wołoszynowski
 
-group:
+group: 3
 
 ## How to start the app
 
