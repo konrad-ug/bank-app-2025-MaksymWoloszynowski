@@ -7,29 +7,32 @@ class Account:
     
     def withdraw(self, amount):
         if amount <= 0:
-            raise ValueError("Nieprawidłowa wartość kwoty")
+            return False
         if amount > self.balance:
-            raise ValueError("Brak środków")
+            return False
         else:
             self.balance -= amount
             self.history.append(-amount)
+            return True
     
     def deposit(self, amount):
         if amount <= 0:
-            raise ValueError("Nieprawidłowa wartość kwoty")
+            return False
         else:
             self.balance += amount
             self.history.append(amount)
+            return True
 
     def express_transfer(self, amount):
         if amount <= 0:
-            raise ValueError("Nieprawidłowa wartość kwoty")
+            return False
         if amount > self.balance + self.express_transfer_fee:
-            raise ValueError("Brak środków")
+            return False
         else:
             self.balance -= amount + self.express_transfer_fee
             self.history.append(-amount)
             self.history.append(-self.express_transfer_fee)
+            return True
 
 class PersonalAccount(Account):
     def __init__(self, first_name, last_name, pesel, promo_code=None):
