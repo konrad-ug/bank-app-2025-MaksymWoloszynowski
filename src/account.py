@@ -1,4 +1,8 @@
 import re
+from datetime import date
+import os
+import requests
+import pytest
 
 class Account:
     def __init__(self):
@@ -92,7 +96,10 @@ class BusinessAccount(Account):
         if len(nip) != 10:
             self.nip = "Invalid"
         else:
-            self.nip = nip
+            if self.check_nip(nip):
+                self.nip = nip
+            else:
+                raise ValueError("Company not registered!!")
 
     def take_loan(self, amount):
         first_condition = self.balance >= 2 * amount
@@ -103,3 +110,15 @@ class BusinessAccount(Account):
             return True
 
         return False 
+    
+    def check_nip(self, nip):
+        gov_url = os.getenv("BANK_APP_MF_URL", "https://wl-test.mf.gov.pl")
+        today = date.today().isoformat()
+        url = f"{gov_url}/api/search/nip/{nip}?date={today}"
+
+        response = requests.get(url)
+        data = response.json()
+
+        print("Response od MF: ", data)
+
+        return data['result']['subject']['statusVat'] == "Czynny"
