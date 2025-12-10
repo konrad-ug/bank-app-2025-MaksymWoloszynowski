@@ -1,7 +1,6 @@
 from src.account import BusinessAccount
 import pytest
 
-
 class TestBusinessAccount:
 
     @pytest.fixture
