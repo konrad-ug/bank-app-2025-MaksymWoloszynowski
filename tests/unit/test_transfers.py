@@ -11,13 +11,11 @@ class TestTransfer:
     def test_withdraw_not_enough_money(self):
         account = PersonalAccount("John", "Doe", "49071512368")
         account.deposit(50)
-        with pytest.raises(ValueError):
-            account.withdraw(100)
+        assert account.withdraw(100) == False
 
     def test_withdraw_incorrect_amount(self):
         account = PersonalAccount("John", "Doe", "49071512368")
-        with pytest.raises(ValueError):
-            account.withdraw(-100)
+        assert account.withdraw(-100) == False
 
     def test_deposit(self):
         account = PersonalAccount("John", "Doe", "49071512368")
@@ -26,8 +24,7 @@ class TestTransfer:
 
     def test_deposit_incorrect_amount(self):
         account = PersonalAccount("John", "Doe", "49071512368")
-        with pytest.raises(ValueError):
-            account.deposit(-100)
+        assert account.deposit(-100) == False
         
     def test_personal_account_express_transfer(self):
         account = PersonalAccount("John", "Doe", "49071512368")
@@ -37,8 +34,7 @@ class TestTransfer:
     
     def test_express_transfer_amount_below_0(self):
         account = PersonalAccount("John", "Doe", "49071512368")
-        with pytest.raises(ValueError):
-            account.express_transfer(-2)
+        assert account.express_transfer(-2) == False
     
     def test_personal_account_express_transfer_below_0_acceptable(self):
         account = PersonalAccount("John", "Doe", "49071512368")
@@ -49,8 +45,7 @@ class TestTransfer:
     def test_personal_account_express_transfer_below_0_too_much(self):
         account = PersonalAccount("John", "Doe", "49071512368")
         account.balance = 50
-        with pytest.raises(ValueError):
-            account.express_transfer(100)
+        assert account.express_transfer(100) == False
 
     def test_business_account_express_transfer(self):
         account = BusinessAccount("Coca Cola", "1234567890")
@@ -67,5 +62,4 @@ class TestTransfer:
     def test_business_account_express_transfer_below_0_too_much(self):
         account = BusinessAccount("Coca Cola", "1234567890")
         account.balance = 50
-        with pytest.raises(ValueError):
-            account.express_transfer(100)
+        assert account.express_transfer(100) == False

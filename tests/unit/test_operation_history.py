@@ -16,6 +16,5 @@ class TestOperationHistory:
 
     def test_failed_transfer(self):
         account = PersonalAccount("John", "Doe", "49071512368")
-        with pytest.raises(ValueError):
-            account.withdraw(1000)
+        assert account.withdraw(100) == False
         assert account.history == []
