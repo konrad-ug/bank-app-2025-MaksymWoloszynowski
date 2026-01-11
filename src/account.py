@@ -1,13 +1,15 @@
 import re
-from datetime import date
+from datetime import date, datetime
 import os
 import requests
 import pytest
+from smtp.smtp import SMTPClient
 
 class Account:
     def __init__(self):
         self.balance = 0
         self.history = []
+        self.email_message = ""
     
     def withdraw(self, amount):
         if amount <= 0:
@@ -37,6 +39,9 @@ class Account:
             self.history.append(-amount)
             self.history.append(-self.express_transfer_fee)
             return True
+        
+    def send_history_via_email(self, email_address):
+        return SMTPClient.send(f"Account Transfer History {datetime.now().date()}", f"{self.email_message}: {self.history}", email_address)
 
 class PersonalAccount(Account):
     def __init__(self, first_name, last_name, pesel, promo_code=None):
@@ -44,6 +49,7 @@ class PersonalAccount(Account):
         self.first_name = first_name
         self.last_name = last_name
         self.express_transfer_fee = 1
+        self.email_message = "Personal account history"
 
         if len(pesel) != 11:
             self.pesel = "Invalid"
@@ -92,6 +98,7 @@ class BusinessAccount(Account):
         super().__init__()
         self.company_name = company_name
         self.express_transfer_fee = 5
+        self.email_message = "Company account history"
         
         if len(nip) != 10:
             self.nip = "Invalid"
