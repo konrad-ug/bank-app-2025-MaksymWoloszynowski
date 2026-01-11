@@ -37,7 +37,7 @@ jobs:
         flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
     - name: Unit tests
       run: |
-        python3 -m coverage run --source=src --omit="tests/api/* tests/perf/*" pytest
+        python3 -m coverage run --source=src --omit="tests/api/* tests/perf/*" -m pytest
     - name: Coverage report
       run: |
         python3 -m coverage report
