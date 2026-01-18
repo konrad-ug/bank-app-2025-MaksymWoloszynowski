@@ -75,8 +75,6 @@ def transfer(pesel):
 
     account = registry.get_account_by_pesel(pesel)
 
-    print(registry.accounts[0].pesel)
-
     if not account:
         return jsonify({"message": "Account not found"}), 404
 
