@@ -50,6 +50,7 @@ class PersonalAccount(Account):
         self.last_name = last_name
         self.express_transfer_fee = 1
         self.email_message = "Personal account history"
+        self.promo_code = promo_code
 
         if len(pesel) != 11:
             self.pesel = "Invalid"
@@ -92,6 +93,16 @@ class PersonalAccount(Account):
             return True
 
         return False
+    
+    def to_dict(self):
+        return {
+            "first_name": self.first_name,
+            "last_name": self.last_name,
+            "pesel": self.pesel,
+            "history": self.history,
+            "balance": self.balance,
+            "promo_code": self.promo_code,
+        }
     
 class BusinessAccount(Account):
     def __init__(self, company_name, nip):

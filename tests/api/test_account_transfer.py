@@ -21,7 +21,6 @@ class TestApiTransfer:
         response = requests.post(f"{BASE_URL}/api/accounts/{pesel}/transfer", json=body)
         return response
 
-    
     def test_incoming_transfer(self, data):
         pesel = data["pesel"]
 
