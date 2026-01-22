@@ -38,6 +38,7 @@ class TestBusinessAccount:
 
         with pytest.raises(ValueError):
             BusinessAccount("Coca Cola", "0000000000")
+            
     def test_business_account_create_nip_wrong(self, mocker):
         account = BusinessAccount("Coca Cola", "f")
 
