@@ -1,0 +1,26 @@
+{
+  "name": "testowanie-automatyczne",
+  "version": "1.0.0",
+  "description": "[![Review Assignment Due Date](https://classroom.github.com/assets/deadline-readme-button-22041afd0340ce965d47ae6ef1cefeee28c7c493a6346c4f15d667ab976d596c.svg)](https://classroom.github.com/a/IwJY4g24) # Bank-app",
+  "main": "index.js",
+  "directories": {
+    "test": "tests"
+  },
+  "scripts": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/konrad-ug/bank-app-2025-MaksymWoloszynowski.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/konrad-ug/bank-app-2025-MaksymWoloszynowski/issues"
+  },
+  "homepage": "https://github.com/konrad-ug/bank-app-2025-MaksymWoloszynowski#readme",
+  "devDependencies": {
+    "@playwright/test": "^1.58.0",
+    "@types/node": "^25.0.10"
+  }
+}
